@@ -6,16 +6,16 @@ public class SkinSelector : MonoBehaviour
     private Snake snake;
 
     [SerializeField]
-    private Color SelectedColor;
+    private Color SelectedSkin;
     private int SelectedIndex = 0;
 
-    private void SetColor()
+    private void SetSkin()
     {
-        SelectedColor = PastelColor.All[SelectedIndex];
-        snake.SetColor(SelectedColor);
+        SelectedSkin = PastelColor.All[SelectedIndex];
+        snake.SetSkin(SelectedSkin);
     }
 
-    public void SetPrevColor()
+    public void PrevSkin()
     {
         --SelectedIndex;
 
@@ -24,10 +24,10 @@ public class SkinSelector : MonoBehaviour
             SelectedIndex = PastelColor.All.Length - 1;
         }
 
-        SetColor();
+        SetSkin();
     }
 
-    public void SetNextColor()
+    public void NextSkin()
     {
         ++SelectedIndex;
 
@@ -36,11 +36,11 @@ public class SkinSelector : MonoBehaviour
             SelectedIndex = 0;
         }
 
-        SetColor();
+        SetSkin();
     }
 
     public void Save()
     {
-        LoginUser.instance.skin = SelectedColor;
+        Scene.SkinToLogin(SelectedSkin);
     }
 }

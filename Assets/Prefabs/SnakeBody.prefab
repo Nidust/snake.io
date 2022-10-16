@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 845790057035816935}
   - component: {fileID: -3087108742749147823}
   - component: {fileID: 3475686309876467249}
-  - component: {fileID: -8616580120467428301}
   m_Layer: 0
   m_Name: SnakeBody
   m_TagString: Player
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6129690394236633173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -139,15 +138,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snake: {fileID: 0}
---- !u!114 &-8616580120467428301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6129690394236633173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50aadee2822989142971fd816132250e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

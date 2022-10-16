@@ -5,6 +5,7 @@ public class SnakeCollider : MonoBehaviour
 {
     [SerializeField]
     private Snake snake;
+    private bool hitHead;
     
     private void Awake()
     {
@@ -23,6 +24,9 @@ public class SnakeCollider : MonoBehaviour
             return;
         }
 
-        snake.OnCollision(collider);
+        if (collider.gameObject.CompareTag("Feed"))
+        {
+            snake.EatFeed(collider.gameObject.GetComponent<Feed>());
+        }
     }
 }

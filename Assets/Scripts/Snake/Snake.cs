@@ -1,45 +1,40 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SnakeBodyCreator))]
 [RequireComponent(typeof(ExpManager))]
 public class Snake : MonoBehaviour
 {
-    private SnakeBodyCreator creator;
-    private ExpManager expManager;
-
-    private GameObject snakeHead;
-
+    public Color Skin;
+    private SnakeBody SnakeBody;
+    private ExpManager ExpManager;
+    
     private void Start()
     {
-        creator = GetComponent<SnakeBodyCreator>();
-        snakeHead = creator.GetParts(0);
+        SnakeBody = GetComponentInChildren<SnakeBody>();
+        ExpManager = GetComponent<ExpManager>();
+        ExpManager.OnLevelUp.AddListener(OnLevelUp);
 
-        expManager = GetComponent<ExpManager>();
-        expManager.OnLevelUp.AddListener(OnLevelUp);
+        SetSkin(LoginUser.Instance.Skin);
     }
 
-    public void SetColor(Color color)
+    public void SetSkin(Color skin)
     {
-        creator.SetColor(color);
+        Skin = skin;
+        GetComponent<SpriteRenderer>().color = skin;
+
+        SnakeBody.SetSkin(skin);
     }
 
-    public void OnCollision(Collider2D collider)
+    public void EatFeed(Feed feed)
     {
-        GameObject gameObject = collider.gameObject;
+        float exp = feed.Exp;
+        ExpManager.AddExp(exp);
 
-        if (gameObject.CompareTag("Feed"))
-        {
-            float exp = gameObject.GetComponent<Feed>().Exp;
-            expManager.AddExp(exp);
-
-            Destroy(gameObject);
-        }
+        Destroy(feed.gameObject);
     }
 
     public void OnLevelUp()
     {
         Debug.Log("Level Up!!");
-
-        creator.AppendBody();
+        SnakeBody.Append();
     }
 }
