@@ -1,18 +1,26 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SnakeMovement))]
-[RequireComponent(typeof(SnakeBodyParts))]
+[RequireComponent(typeof(SnakeBodyCreator))]
+[RequireComponent(typeof(ExpManager))]
 public class Snake : MonoBehaviour
 {
-    private SnakeBodyParts bodyParts;
+    private SnakeBodyCreator creator;
     private ExpManager expManager;
+
+    private GameObject snakeHead;
 
     private void Start()
     {
-        bodyParts = GetComponent<SnakeBodyParts>();
-        
+        creator = GetComponent<SnakeBodyCreator>();
+        snakeHead = creator.GetParts(0);
+
         expManager = GetComponent<ExpManager>();
         expManager.OnLevelUp.AddListener(OnLevelUp);
+    }
+
+    public void SetColor(Color color)
+    {
+        creator.SetColor(color);
     }
 
     public void OnCollision(Collider2D collider)
@@ -21,7 +29,7 @@ public class Snake : MonoBehaviour
 
         if (gameObject.CompareTag("Feed"))
         {
-            float exp = gameObject.GetComponent<Feed>().exp;
+            float exp = gameObject.GetComponent<Feed>().Exp;
             expManager.AddExp(exp);
 
             Destroy(gameObject);
@@ -31,6 +39,7 @@ public class Snake : MonoBehaviour
     public void OnLevelUp()
     {
         Debug.Log("Level Up!!");
-        bodyParts.AppendParts();
+
+        creator.AppendBody();
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeBodyParts : MonoBehaviour
+public class SnakeBodyCreator : MonoBehaviour
 {
     [SerializeField]
     private Color skin = Color.white;
@@ -21,6 +21,8 @@ public class SnakeBodyParts : MonoBehaviour
     private void Awake()
     {
         CreateParts();
+
+        skin = LoginUser.instance.skin;
     }
 
     private void FixedUpdate()
@@ -82,7 +84,17 @@ public class SnakeBodyParts : MonoBehaviour
         }
     }
 
-    public void AppendParts()
+    public void SetColor(Color color)
+    {
+        skin = color;
+
+        foreach (GameObject item in BodyParts)
+        {
+            item.GetComponent<SpriteRenderer>().color = color;
+        }
+    }
+
+    public void AppendBody()
     {
         ++RequiredBeCreated;
     }
